@@ -1,0 +1,75 @@
+// trigger_commonanimals.js
+
+const animalTriggers = {
+    "dog": "Ui",
+    "cat": "Mengte",
+    "elephant": "Sai",
+    "lion": "Sakei bak nei",
+    "tiger": "Sakei Triel",
+    "horse": "Sakawr",
+    "cow": "Bawng",
+    "sheep": "Beram",
+    "goat": "Kel",
+    "pig": "Vawk",
+    "rabbit": "Mazupui",
+    "mouse": "Mazu",
+    "deer": "Sakhi",
+    "bear": "Savom",
+    "fox": "Sihal",
+    "hyena": "Satene",
+    "zebra": "Zebra",
+    "giraffe": "Saringsei",
+    "dolphin": "Dolfin",
+    "whale": "Ngapui",
+    "chicken": "Ar",
+    "owl": "Simbu",
+    "frog": "Utrawk",
+    "snake": "Rul",
+    "lizard": "Chalru",
+    "turtle": "Satel",
+    "bat": "Bak",
+    "antelope": "Antelope",
+    "boar": "Ram Vawk",
+    "cheetah": "Keite",
+    "squirrel": "Thinhlei"
+};
+
+async function checkForAnimalTrigger(userInput) {
+    const normalizedInput = userInput.toLowerCase();
+    const words = normalizedInput.split(" "); // Split input into words
+
+    // Check for each word to see if it's a trigger
+    for (const word of words) {
+        if (animalTriggers[word]) {
+            const hmarWord = animalTriggers[word]; // Get Hmar translation
+            
+            // Construct the data to send to AI
+            const dataToSend = {
+                userInput: userInput, // Full user input
+                translation: `${word} = ${hmarWord}` // Translation data
+            };
+
+            // Send the data to the AI
+            await sendToAI(dataToSend);
+            return; // Exit after handling the first trigger found
+        }
+    }
+}
+
+async function sendToAI(data) {
+    // Here you would implement the actual API call to your AI service
+    console.log("Sending to AI:", data);
+
+    // For demonstration, we'll simulate an AI response
+    const simulatedResponse = `You asked about "${data.userInput}". Translation: ${data.translation}`;
+    displayAIResponse(simulatedResponse);
+}
+
+function displayAIResponse(response) {
+    const messagesDiv = document.getElementById('messages');
+    const animalMessageElement = document.createElement('div');
+    animalMessageElement.className = 'trigger-message';
+    animalMessageElement.innerHTML = `<div class="chatbot-response"><span class="ai-logo"></span><span>${response}</span></div>`;
+    messagesDiv.appendChild(animalMessageElement);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
+}

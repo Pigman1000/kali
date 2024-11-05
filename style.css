@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#chat-container {
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+#middle-container {
+    background-image: url('bg.png'); /* Replace with your pixel animation or background */
+    background-size: cover;
+    background-position: center;
+    flex: 1; /* Allow #middle-container to expand */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    overflow-y: auto; /* Make #middle-container scroll independently */
+    border-radius: 4px; /* Match the border radius of the chat container */
+}
+
+#messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto; /* Allows chat messages to scroll */
+    scroll-behavior: smooth;
+}
+
+/* Input container styling */
+#input-container {
+    display: flex;
+    padding: 15px;
+    background-color: white;
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0; /* Fix input at the bottom of #chat-container */
+}
+
+textarea {
+    flex: 1;
+    padding: 15px 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Make the edges rounder */
+    margin-right: 5px;
+    font-size: 14px;
+    resize: none; /* Disable manual resizing */
+    overflow: hidden; /* Hide overflow */
+    min-height: 40px; /* Default minimum height */
+    max-height: 100px; /* Optional: set a max height for the textarea */
+}
+
+button {
+    height: 38px; /* Fixed height for the button */
+    padding: 0 16px; /* Horizontal padding to keep it centered */
+    border: none;
+    border-radius: 20px;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    width: 40px; /* Fixed width for the button */
+    font-size: 14px; /* Ensuring consistent font size */
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Additional message styling */
+.user-message,
+.chatbot-message,
+.thinking-text {
+    border-radius: 10px;
+    padding: 8px;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.user-message {
+    background-color: whitesmoke;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.chatbot-message {
+    background-color: #a9a9a9;
+    text-align: left;
+    margin: 10px 0;
+}
+
+.thinking-text {
+    background-color: #d3eaf7;
+    color: #333;
+    padding: 10px;
+    border-radius: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    display: inline-block;
+    max-width: 90%;
+    margin-top: 5px;
+    animation: thinking-animation 1s steps(3) infinite;
+}
+
+/* Animation for thinking dots */
+@keyframes thinking-animation {
+    0% { content: "Thinking."; }
+    33% { content: "Thinking.."; }
+    66% { content: "Thinking..."; }
+    100% { content: "Thinking...."; }
+}
+
+/* Media query for smaller screens */
+@media (max-width: 400px) {
+    #chat-container {
+        max-width: 100%;
+        margin: 0;
+    }
+}
