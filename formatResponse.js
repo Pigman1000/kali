@@ -36,7 +36,7 @@ function countTokens(text) {
 }
 
 /**
- * Fetches AI response from the Hugging Face API.
+ * Fetches AI response from the Groq API.
  *
  * @param {string} question - User's question.
  * @param {string} aiName - AI's name.
@@ -46,34 +46,23 @@ function countTokens(text) {
  * @returns {string} Formatted AI response.
  */
 async function fetchResponse(question, aiName, additionalDetails, currentTime, lastInputTime) {
-    const apiUrl = 'https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct/v1/chat/completions'; // Actual API URL
+    const apiUrl = 'https://api.groq.com/openai/v1/chat/completions'; // Updated API URL
 
     try {
-        const inputTokens = countTokens(question) + countTokens(additionalDetails);
-        const maxTotalTokens = 1000; // Maximum total tokens (input + output)
-        const maxOutputTokens = Math.max(0, maxTotalTokens - inputTokens); // Calculate remaining tokens for output
-
-        console.log(`Input tokens: ${inputTokens}, Output tokens allowed: ${maxOutputTokens}`); // Debugging log
-
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
-                'Authorization': 'Bearer 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', // Ensure to keep your token secure
+                'Authorization': `Bearer ${process.env.GROQ_API_KEY}`, // Get API key from environment variables
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: "meta-llama/Llama-3.2-3B-Instruct",
+                model: "llama3-8b-8192", // Updated model name
                 messages: [
                     {
-                        role: "system",
-                        content: `You are an AI named ${aiName}. ${additionalDetails}. The current time is ${currentTime}. The last user input was at ${lastInputTime}.`
-                    },
-                    {
                         role: "user",
-                        content: question
+                        content: question // User's question content
                     }
-                ],
-                max_tokens: maxOutputTokens // Set max tokens for output dynamically
+                ]
             })
         });
 
